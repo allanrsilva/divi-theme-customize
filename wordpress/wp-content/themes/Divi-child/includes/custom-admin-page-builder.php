@@ -981,7 +981,7 @@ echo <<<END
 		</div>
 	</script>
 		
-	<script type="text/template" id="et-builder-slider_artezzo-module-template">
+	<script type="text/template" id="et-builder-et_pb_slider_artezzo-module-template">
 		<h3 class="et-pb-settings-heading">Fullwidth Slider Module Settings</h3>
 
 		<div class="et-pb-main-settings">
