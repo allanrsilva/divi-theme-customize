@@ -8,6 +8,11 @@
 	$template_directory = get_template_directory();
 
 	require_once( $template_directory . '-child/includes/custom-admin-page-builder.php' );
+
+	if(is_admin()) {
+		wp_register_style( 'style-admin-custom', '/assets/css/style-admin-custom.css', null, 1.0, 'screen' );
+		wp_enqueue_style( 'style-admin-custom' );
+	}
 	
 	wp_register_script( 'custom-script', THEME_DIR . '/assets/js/custom.js', array( 'jquery' ), '1', true );
 	wp_enqueue_script( 'custom-script' );
