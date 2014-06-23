@@ -1,5 +1,47 @@
 var ET_PageBuilder = ET_PageBuilder || {};
 
+	function select_slide(value){
+
+
+    	var slide = value.options[value.options.selectedIndex];	
+    	var slide = slide.value;
+
+    	console.log(slide);
+
+    	jQuery('.container-options').fadeOut(300, function(){
+    		
+	    		switch (slide) {
+		    		case 'slide_simple' :
+		    			jQuery('.container-options .element').hide();
+		    			jQuery('.container-options .slide_image_background').show();
+		    		break;
+		    		case 'slide_images' :
+		    			jQuery('.container-options .element').hide();
+		    			jQuery('.container-options .slide_right').show();
+		    			jQuery('.container-options .slide_left').show();
+		    			jQuery('.container-options .slide_image_background').show();
+
+
+		    		break;
+		    		case 'slide_image_video' :
+		    			jQuery('.container-options .element').hide();
+		    			jQuery('.container-options .slide_image').show();
+		    			jQuery('.container-options .slide_video').show();
+		    			jQuery('.container-options .slide_video_position').show();
+		    			jQuery('.container-options .slide_image_background').show();
+		    		break;
+		    		case 'slide_video' :
+		    			jQuery('.container-options .element').hide();
+		    			jQuery('.container-options .slide_video_background').show();		    			
+
+		    		break;
+		    	}
+
+    		});
+    		
+    	jQuery('.container-options').fadeIn(200);
+    }
+
 ( function($) {
 
 	$( document ).ready( function() {

@@ -15,7 +15,7 @@ function artezzo_add_custom_box() {
 	);
 
 	foreach ( $post_types as $post_type ) {
-		remove_meta_box( 'et_pb_layouts', $post_type, 'normal' );
+		remove_meta_box( 'et_pb_layout', $post_type, 'normal' );
 		add_meta_box( 'et_pb_layouts', __( 'Page Builder', 'Divi' ), 'artezzo_pagebuilder_meta_box', $post_type, 'normal', 'high' );
 	}
 }
@@ -1095,44 +1095,31 @@ echo <<<END
 
 		<div class="et-pb-main-settings">
 			<div class="et-pb-option">
-				<label for="et_pb_heading">Heading: </label>
+				<label for="et_pb_heading">Selecione um tipo de slide: </label>
 				<div class="et-pb-option-container">
-					<input id="et_pb_heading" type="text" class="regular-text" value="<%= typeof( et_pb_heading ) !== 'undefined' ?  et_pb_heading : '' %>" />
-
-					<p class="description">Define the title text for your slide.</p>
+					<label>
+						<select id="et_pb_type_slide" class="et_pb_type_slide" onchange="select_slide(this)">
+						<option value="slide_simple">Slide Simples</option>
+						<option value="slide_images">Slide com imagens</option>
+						<option value="slide_image_video">Slide com vídeo</option>
+						<option value="slide_video">Slide com vídeo de background</option>
+						</select>
+					</label>
+					<p class="description">Defina um slide para exibição.</p>
 				</div> <!-- .et-pb-option-container -->
 			</div> <!-- .et-pb-option -->
 
 			<div class="et-pb-option">
-				<label for="et_pb_button_text">Button Text: </label>
+				<label for="et_pb_button_link">URL do slide: </label>
 				<div class="et-pb-option-container">
-					<input id="et_pb_button_text" type="text" class="regular-text" value="<%= typeof( et_pb_button_text ) !== 'undefined' ?  et_pb_button_text : '' %>" />
+					<input id="et_pb_slide_link" type="text" class="regular-text" value="<%= typeof( et_pb_slide_link ) !== 'undefined' ?  et_pb_slide_link : '' %>" />
 
-					<p class="description">Define the text for the slide button</p>
+					<p class="description">Insira o link do slide.</p>
 				</div> <!-- .et-pb-option-container -->
 			</div> <!-- .et-pb-option -->
 
 			<div class="et-pb-option">
-				<label for="et_pb_button_link">Button URL: </label>
-				<div class="et-pb-option-container">
-					<input id="et_pb_button_link" type="text" class="regular-text" value="<%= typeof( et_pb_button_link ) !== 'undefined' ?  et_pb_button_link : '' %>" />
-
-					<p class="description">Input a destination URL for the slide button.</p>
-				</div> <!-- .et-pb-option-container -->
-			</div> <!-- .et-pb-option -->
-
-			<div class="et-pb-option">
-				<label for="et_pb_background_image">Background Image: </label>
-
-				<div class="et-pb-option-container">
-					<input id="et_pb_background_image" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_background_image ) !== 'undefined' ?  et_pb_background_image : '' %>" />
-					<input type='button' class='button button-upload et-pb-upload-button' value='Upload an image' data-choose="Choose a Background Image" data-update="Set As Background" data-type="image" />
-					<p class="description">If defined, this image will be used as the background for this module. To remove a background image, simply delete the URL from the settings field.</p>
-				</div> <!-- .et-pb-option-container -->
-			</div> <!-- .et-pb-option -->
-
-			<div class="et-pb-option">
-				<label for="et_pb_background_color">Background Color: </label>
+				<label for="et_pb_background_color">Cor do background: </label>
 
 				<div class="et-pb-option-container">
 
@@ -1142,104 +1129,81 @@ echo <<<END
 				</div> <!-- .et-pb-option-container -->
 			</div> <!-- .et-pb-option -->
 
-			<div class="et-pb-option">
-				<label for="et_pb_image">Slide Image: </label>
-				<div class="et-pb-option-container">
-					<input id="et_pb_image" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_image ) !== 'undefined' ?  et_pb_image : '' %>" />
-					<input type='button' class='button button-upload et-pb-upload-button' value='Upload an Image' data-choose="Choose a Slide Image" data-update="Set As Slide Image" data-type="image" />
+			<div class="container-options">
 
-					<p class="description">If defined, this slide image will appear to the left of your slide text. Upload an image, or leave blank for a text-only slide.</p>
-				</div> <!-- .et-pb-option-container -->
-			</div> <!-- .et-pb-option -->
+				<div class="et-pb-option slide_right element">
+					<label for="et_pb_background_image">Selecione a imagem da direita: </label>
 
-			<div class="et-pb-option">
-				<label for="et_pb_alignment">Slide Image Vertical Alignment: </label>
-				<div class="et-pb-option-container">
-					<select name="et_pb_alignment" id="et_pb_alignment">
-						<option value="center"<%= typeof( et_pb_alignment ) !== 'undefined' && 'center' === et_pb_alignment ?  ' selected="selected"' : '' %>>Center</option>
-						<option value="bottom"<%= typeof( et_pb_alignment ) !== 'undefined' && 'bottom' === et_pb_alignment ?  ' selected="selected"' : '' %>>Bottom</option>
-					</select>
+					<div class="et-pb-option-container">
+						<input id="et_pb_background_image" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_background_image ) !== 'undefined' ?  et_pb_background_image : '' %>" />
+						<input type='button' class='button button-upload et-pb-upload-button' value='Upload an image' data-choose="Choose a Background Image" data-update="Set As Background" data-type="image" />
+						<p class="description">If defined, this image will be used as the background for this module. To remove a background image, simply delete the URL from the settings field.</p>
+					</div> <!-- .et-pb-option-container -->
+				</div> <!-- .et-pb-option -->
 
-					<p class="description">This setting determines the vertical alignment of your slide image. Your image can either be vertically centered, or aligned to the bottom of your slide.</p>
-				</div> <!-- .et-pb-option-container -->
-			</div> <!-- .et-pb-option -->
 
-			<div class="et-pb-option">
-				<label for="et_pb_video_url">Slide Video: </label>
-				<div class="et-pb-option-container">
-					<input id="et_pb_video_url" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_video_url ) !== 'undefined' ?  et_pb_video_url : '' %>" />
+				<div class="et-pb-option slide_left element">
+					<label for="et_pb_background_image">Selecione a imagem da esquerda: </label>
 
-					<p class="description">If defined, this video will appear to the left of your slide text. Enter youtube or vimeo page url, or leave blank for a text-only slide.</p>
-				</div> <!-- .et-pb-option-container -->
-			</div> <!-- .et-pb-option -->
+					<div class="et-pb-option-container">
+						<input id="et_pb_background_image" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_background_image ) !== 'undefined' ?  et_pb_background_image : '' %>" />
+						<input type='button' class='button button-upload et-pb-upload-button' value='Upload an image' data-choose="Choose a Background Image" data-update="Set As Background" data-type="image" />
+						<p class="description">If defined, this image will be used as the background for this module. To remove a background image, simply delete the URL from the settings field.</p>
+					</div> <!-- .et-pb-option-container -->
+				</div> <!-- .et-pb-option -->	
+				
+				<div class="et-pb-option slide_image element">
+					<label for="et_pb_slide_image">Selecione a imagem do slide: </label>
 
-			<div class="et-pb-option">
-				<label for="et_pb_image_alt">Image Alternative Text: </label>
-				<div class="et-pb-option-container">
-					<input id="et_pb_image_alt" type="text" class="regular-text" value="<%= typeof( et_pb_image_alt ) !== 'undefined' ?  et_pb_image_alt : '' %>" />
+					<div class="et-pb-option-container">
+						<input id="et_pb_slide_image" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_background_image ) !== 'undefined' ?  et_pb_background_image : '' %>" />
+						<input type='button' class='button button-upload et-pb-upload-button' value='Upload an image' data-choose="Choose a Background Image" data-update="Set As Background" data-type="image" />
+						<p class="description">If defined, this image will be used as the background for this module. To remove a background image, simply delete the URL from the settings field.</p>
+					</div> <!-- .et-pb-option-container -->
+				</div> <!-- .et-pb-option -->
 
-					<p class="description">If you have a slide image defined, input your HTML ALT text for the image here.</p>
-				</div> <!-- .et-pb-option-container -->
-			</div> <!-- .et-pb-option -->
+				<div class="et-pb-option slide_video element">
+					<label for="et_pb_slide_video">Selecione o vídeo do slide: </label>
 
-			<div class="et-pb-option">
-				<label for="et_pb_background_layout">Text Color: </label>
-				<div class="et-pb-option-container">
-					<select name="et_pb_background_layout" id="et_pb_background_layout">
-						<option value="dark"<%= typeof( et_pb_background_layout ) !== 'undefined' && 'dark' === et_pb_background_layout ?  ' selected="selected"' : '' %>>Light</option>
-						<option value="light"<%= typeof( et_pb_background_layout ) !== 'undefined' && 'light' === et_pb_background_layout ?  ' selected="selected"' : '' %>>Dark</option>
-					</select>
+					<div class="et-pb-option-container">
+						<input id="et_pb_slide_video" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_slide_video ) !== 'undefined' ?  et_pb_slide_video : '' %>" />
+						<input type='button' class='button button-upload et-pb-upload-button' value='Selecionar vídeo' data-choose="Alterar vídeo data-update="Selecione um vídeo" data-type="video" />
+						<p class="description">Selecione um vídeo ou insira um link do youtube.</p>
+					</div> <!-- .et-pb-option-container -->
+				</div> <!-- .et-pb-option -->
 
-					<p class="description">Here you can choose whether your text is light or dark. If you have a slide with a dark background, then choose light text. If you have a light background, then use dark text.</p>
-				</div> <!-- .et-pb-option-container -->
-			</div> <!-- .et-pb-option -->
+				<div class="et-pb-option slide_video_position element">
+					<label for="et_pb_alignment">Alinhamento do vídeo: </label>
+					<div class="et-pb-option-container">
+						<select name="et_pb_alignment" id="et_pb_alignment">
+							<option value="center"<%= typeof( et_pb_alignment ) !== 'undefined' && 'center' === et_pb_alignment ?  ' selected="selected"' : '' %>>Vídeo à direita</option>
+							<option value="bottom"<%= typeof( et_pb_alignment ) !== 'undefined' && 'bottom' === et_pb_alignment ?  ' selected="selected"' : '' %>>Vídeo à esquerda</option>
+						</select>
 
-			<div class="et-pb-option">
-				<label for="et_pb_video_bg_mp4">Background Video MP4: </label>
+						<p class="description">This setting determines the vertical alignment of your slide image. Your image can either be vertically centered, or aligned to the bottom of your slide.</p>
+					</div> <!-- .et-pb-option-container -->
+				</div> <!-- .et-pb-option -->
+		
+				<div class="et-pb-option slide_image_background element" style="display:block;">
+					<label for="et_pb_image">Imagem de background: </label>
+					<div class="et-pb-option-container">
+						<input id="et_pb_slide_image_backgroud" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( slide_image_backgroud ) !== 'undefined' ?  slide_image_backgroud : '' %>" />
+						<input type='button' class='button button-upload et-pb-upload-button' value='Upload an Image' data-choose="Choose a Slide Image" data-update="Set As Slide Image" data-type="image" />
 
-				<div class="et-pb-option-container">
-					<input id="et_pb_video_bg_mp4" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_video_bg_mp4 ) !== 'undefined' ?  et_pb_video_bg_mp4 : '' %>" />
-					<input type='button' class='button button-upload et-pb-upload-button' value='Upload a video' data-choose="Choose a Background Video MP4 File" data-update="Set As Background Video" data-type="video" />
-					<p class="description">All videos should be uploaded in both .MP4 .WEBM formats to ensure maximum compatibility in all browsers. Upload the .MP4 version here. <b>Important Note: Video backgrounds are disabled from mobile devices. Instead, your background image will be used. For this reason, you should define both a background image and a background video to ensure best results.</b></p>
-				</div> <!-- .et-pb-option-container -->
-			</div> <!-- .et-pb-option -->
+						<p class="description">If defined, this slide image will appear to the left of your slide text. Upload an image, or leave blank for a text-only slide.</p>
+					</div> <!-- .et-pb-option-container -->
+				</div> <!-- .et-pb-option -->
 
-			<div class="et-pb-option">
-				<label for="et_pb_video_bg_webm">Background Video Webm: </label>
+				<div class="et-pb-option slide_video_background element">
+					<label for="et_pb_video">Video de background: </label>
+					<div class="et-pb-option-container">
+						<input id="et_pb_video_background" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_video_background ) !== 'undefined' ?  et_pb_video_background : '' %>" />
+						<input type='button' class='button button-upload et-pb-upload-button' value='Upload video' data-choose="Choose a Slide Image" data-update="Set As Slide Image" data-type="video" />
 
-				<div class="et-pb-option-container">
-					<input id="et_pb_video_bg_webm" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_video_bg_webm ) !== 'undefined' ?  et_pb_video_bg_webm : '' %>" />
-					<input type='button' class='button button-upload et-pb-upload-button' value='Upload a video' data-choose="Choose a Background Video WEBM File" data-update="Set As Background Video" data-type="video" />
-					<p class="description">All videos should be uploaded in both .MP4 .WEBM formats to ensure maximum compatibility in all browsers. Upload the .WEBM version here. <b>Important Note: Video backgrounds are disabled from mobile devices. Instead, your background image will be used. For this reason, you should define both a background image and a background video to ensure best results.</b></p>
-				</div> <!-- .et-pb-option-container -->
-			</div> <!-- .et-pb-option -->
-
-			<div class="et-pb-option">
-				<label for="et_pb_video_bg_width">Background Video Width: </label>
-
-				<div class="et-pb-option-container">
-					<input id="et_pb_video_bg_width" type="text" class="regular-text" value="<%= typeof( et_pb_video_bg_width ) !== 'undefined' ?  et_pb_video_bg_width : '' %>" />
-					<p class="description">In order for videos to be sized correctly, you must input the exact width (in pixels) of your video here.</p>
-				</div> <!-- .et-pb-option-container -->
-			</div> <!-- .et-pb-option -->
-
-			<div class="et-pb-option">
-				<label for="et_pb_video_bg_height">Background Video Height: </label>
-
-				<div class="et-pb-option-container">
-					<input id="et_pb_video_bg_height" type="text" class="regular-text" value="<%= typeof( et_pb_video_bg_height ) !== 'undefined' ?  et_pb_video_bg_height : '' %>" />
-					<p class="description">In order for videos to be sized correctly, you must input the exact height (in pixels) of your video here.</p>
-				</div> <!-- .et-pb-option-container -->
-			</div> <!-- .et-pb-option -->
-
-			<div class="et-pb-option et-pb-option-main-content">
-				<label for="et_pb_content_new">Content: </label>
-
-				<div class="et-pb-option-container">
-					<textarea id="et_pb_content_new"><%= typeof( et_pb_content_new )!== 'undefined' ? et_pb_content_new : '' %></textarea>
-					<p class="description">Input your main slide text content here.</p>
-				</div> <!-- .et-pb-option-container -->
-			</div> <!-- .et-pb-option -->
+						<p class="description">If defined, this slide image will appear to the left of your slide text. Upload an image, or leave blank for a text-only slide.</p>
+					</div> <!-- .et-pb-option-container -->
+				</div> <!-- .et-pb-option -->
+			</div>
 		</div>
 	</script>
 
