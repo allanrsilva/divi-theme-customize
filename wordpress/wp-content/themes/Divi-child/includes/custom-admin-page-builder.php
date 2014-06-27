@@ -1087,7 +1087,7 @@ echo <<<END
 	</script>	
 
 	<script type="text/template" id="et-builder-advanced-setting-et_pb_slide_artezzo-title">
-		<%= typeof( et_pb_heading ) !== 'undefined' && typeof( et_pb_heading ) === 'string' ?  et_pb_heading : 'New Slide' %>
+		<%= typeof( et_pb_label_slide ) !== 'undefined' && typeof( et_pb_label_slide ) === 'string' ?  et_pb_label_slide : 'Novo slide' %>
 	</script>
 
 	<script type="text/template" id="et-builder-advanced-setting-et_pb_slide_artezzo">
@@ -1099,10 +1099,10 @@ echo <<<END
 				<div class="et-pb-option-container">
 					<label>
 						<select id="et_pb_type_slide" class="et_pb_type_slide" onchange="select_slide(this)">
-						<option value="slide_simple">Slide Simples</option>
-						<option value="slide_images">Slide com imagens</option>
-						<option value="slide_image_video">Slide com vídeo</option>
-						<option value="slide_video">Slide com vídeo de background</option>
+						<option value="slide_simple" <%= typeof( et_pb_type_slide ) !== 'undefined' && 'slide_simple' === et_pb_type_slide ?  ' selected="selected"' : '' %>>Slide Simples</option>
+						<option value="slide_images" <%= typeof( et_pb_type_slide ) !== 'undefined' && 'slide_images' === et_pb_type_slide ?  ' selected="selected"' : '' %>>Slide com imagens</option>
+						<option value="slide_image_video" <%= typeof( et_pb_type_slide ) !== 'undefined' && 'slide_image_video' === et_pb_type_slide ?  ' selected="selected"' : '' %>>Slide com vídeo</option>
+						<option value="slide_video" <%= typeof( et_pb_type_slide ) !== 'undefined' && 'slide_video' === et_pb_type_slide ?  ' selected="selected"' : '' %>>Slide com vídeo de background</option>
 						</select>
 					</label>
 					<p class="description">Defina um slide para exibição.</p>
@@ -1132,10 +1132,10 @@ echo <<<END
 			<div class="container-options">
 
 				<div class="et-pb-option slide_right element">
-					<label for="et_pb_background_image">Selecione a imagem da direita: </label>
+					<label for="et_pb_slide_right">Selecione a imagem da direita: </label>
 
 					<div class="et-pb-option-container">
-						<input id="et_pb_background_image" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_background_image ) !== 'undefined' ?  et_pb_background_image : '' %>" />
+						<input id="et_pb_slide_right" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_slide_right ) !== 'undefined' ?  et_pb_slide_right : '' %>" />
 						<input type='button' class='button button-upload et-pb-upload-button' value='Upload an image' data-choose="Choose a Background Image" data-update="Set As Background" data-type="image" />
 						<p class="description">If defined, this image will be used as the background for this module. To remove a background image, simply delete the URL from the settings field.</p>
 					</div> <!-- .et-pb-option-container -->
@@ -1143,10 +1143,10 @@ echo <<<END
 
 
 				<div class="et-pb-option slide_left element">
-					<label for="et_pb_background_image">Selecione a imagem da esquerda: </label>
+					<label for="et_pb_slide_left">Selecione a imagem da esquerda: </label>
 
 					<div class="et-pb-option-container">
-						<input id="et_pb_background_image" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_background_image ) !== 'undefined' ?  et_pb_background_image : '' %>" />
+						<input id="et_pb_slide_left" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_slide_left ) !== 'undefined' ?  et_pb_slide_left : '' %>" />
 						<input type='button' class='button button-upload et-pb-upload-button' value='Upload an image' data-choose="Choose a Background Image" data-update="Set As Background" data-type="image" />
 						<p class="description">If defined, this image will be used as the background for this module. To remove a background image, simply delete the URL from the settings field.</p>
 					</div> <!-- .et-pb-option-container -->
@@ -1156,7 +1156,7 @@ echo <<<END
 					<label for="et_pb_slide_image">Selecione a imagem do slide: </label>
 
 					<div class="et-pb-option-container">
-						<input id="et_pb_slide_image" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_background_image ) !== 'undefined' ?  et_pb_background_image : '' %>" />
+						<input id="et_pb_slide_image" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( et_pb_slide_image ) !== 'undefined' ?  et_pb_slide_image : '' %>" />
 						<input type='button' class='button button-upload et-pb-upload-button' value='Upload an image' data-choose="Choose a Background Image" data-update="Set As Background" data-type="image" />
 						<p class="description">If defined, this image will be used as the background for this module. To remove a background image, simply delete the URL from the settings field.</p>
 					</div> <!-- .et-pb-option-container -->
@@ -1187,7 +1187,7 @@ echo <<<END
 				<div class="et-pb-option slide_image_background element" style="display:block;">
 					<label for="et_pb_image">Imagem de background: </label>
 					<div class="et-pb-option-container">
-						<input id="et_pb_slide_image_backgroud" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( slide_image_backgroud ) !== 'undefined' ?  slide_image_backgroud : '' %>" />
+						<input id="et_pb_slide_image_background" type="text" class="regular-text et-pb-upload-field" value="<%= typeof( slide_image_background ) !== 'undefined' ?  slide_image_background : '' %>" />
 						<input type='button' class='button button-upload et-pb-upload-button' value='Upload an Image' data-choose="Choose a Slide Image" data-update="Set As Slide Image" data-type="image" />
 
 						<p class="description">If defined, this slide image will appear to the left of your slide text. Upload an image, or leave blank for a text-only slide.</p>
@@ -1201,6 +1201,15 @@ echo <<<END
 						<input type='button' class='button button-upload et-pb-upload-button' value='Upload video' data-choose="Choose a Slide Image" data-update="Set As Slide Image" data-type="video" />
 
 						<p class="description">If defined, this slide image will appear to the left of your slide text. Upload an image, or leave blank for a text-only slide.</p>
+					</div> <!-- .et-pb-option-container -->
+				</div> <!-- .et-pb-option -->
+
+				<div class="et-pb-option">
+					<label for="admin_label">Rótulo do slide: </label>
+
+					<div class="et-pb-option-container">
+						<input id="et_pb_label_slide" type="text" class="regular-text" value="<%= typeof( et_pb_label_slide ) !== 'undefined' ?  et_pb_label_slide : '' %>" />
+						<p class="description">This will change the label of the module in the builder for easy identification.</p>
 					</div> <!-- .et-pb-option-container -->
 				</div> <!-- .et-pb-option -->
 			</div>

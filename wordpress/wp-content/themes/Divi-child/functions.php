@@ -8,6 +8,7 @@
 	$template_directory = get_template_directory();
 
 	require_once( $template_directory . '-child/includes/custom-admin-page-builder.php' );
+	require_once($template_directory . '-child/includes/shortcodes/shortcode-slideshow.php');
 
 	if(is_admin()) {
 		wp_register_style( 'style-admin-custom', THEME_DIR . '/assets/css/style-admin-custom.css', null, 1.0, 'screen' );
@@ -15,7 +16,14 @@
 
 		wp_register_script( 'admin-custom', THEME_DIR . '/assets/js/admin-custom.js', array('jquery'), 1.0, true);
 		wp_enqueue_script( 'script-admin' );
+
 	}
+
+	wp_register_script( 'jquery-cycle-2', THEME_DIR . '/assets/js/jquery.cycle2.min.js', array('jquery'), 1.0, true);
+	wp_enqueue_script( 'jquery-cycle-2' );
+
+	wp_register_script( 'jquery-backstretch', THEME_DIR . '/assets/js/jquery.backstretch.min.js', array('jquery'), 1.0, true);
+	wp_enqueue_script( 'jquery-backstretch' );
 	
 	wp_register_script( 'custom-script', THEME_DIR . '/assets/js/custom.js', array( 'jquery' ), '1', true );
 	wp_enqueue_script( 'custom-script' );
